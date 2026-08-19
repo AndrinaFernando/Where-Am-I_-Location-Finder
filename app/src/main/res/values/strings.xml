@@ -1,11 +1,37 @@
 <resources>
     <string name="app_name">Where Am I?</string>
     <string name="app_heading">Where Am I?</string>
-    <string name="app_description">Tap the button to retrieve your current location.</string>
-    <string name="status_initial">Location has not been requested</string>
-    <string name="label_latitude">Latitude: Not available</string>
-    <string name="label_longitude">Longitude: Not available</string>
-    <string name="label_accuracy">Accuracy: Not available</string>
-    <string name="label_timestamp">Timestamp: Not available</string>
+    <string name="app_description">Instantly find your current coordinates and address.</string>
+    <string name="status_initial">Ready to locate</string>
+
+    <string name="label_current_location">CURRENT LOCATION</string>
+    <string name="location_initial_message">Tap below to find your location</string>
+    <string name="location_not_available">Location unavailable</string>
+
+    <string name="label_location_details">LOCATION DETAILS</string>
+    <string name="label_latitude">Latitude</string>
+    <string name="label_longitude">Longitude</string>
+    <string name="label_accuracy">Accuracy</string>
+    <string name="label_timestamp">Time</string>
+
+    <string name="label_latitude_short">Lat</string>
+    <string name="label_longitude_short">Lng</string>
+
     <string name="btn_get_location">Get My Location</string>
+    <string name="status_retrieving">Finding your location…</string>
+    <string name="status_success">Location found successfully</string>
+    <string name="status_permission_denied">Location permission required</string>
+    <string name="permission_rationale">Location access is needed to show where you are.</string>
+    <string name="status_location_services_disabled">Location services disabled</string>
+    <string name="status_error">Location unavailable</string>
+
+    <string name="label_latitude_value">%1$s°</string>
+    <string name="label_longitude_value">%1$s°</string>
+    <string name="label_accuracy_value">±%1$s</string>
+    <string name="label_timestamp_value">%1$s</string>
+    <string name="value_placeholder">--</string>
+
+    <string name="content_desc_location_icon">Location Icon</string>
+    <string name="content_desc_accuracy_icon">Accuracy Icon</string>
+    <string name="content_desc_time_icon">Time Icon</string>
 </resources>
