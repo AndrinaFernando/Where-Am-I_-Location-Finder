@@ -8,4 +8,14 @@
     <string name="label_accuracy">Accuracy: Not available</string>
     <string name="label_timestamp">Timestamp: Not available</string>
     <string name="btn_get_location">Get My Location</string>
+    <string name="status_retrieving">Retrieving current location…</string>
+    <string name="status_success">Current location retrieved successfully.</string>
+    <string name="status_permission_denied">Location permission was denied. Permission is required to retrieve your location.</string>
+    <string name="permission_rationale">Location access is needed to show where you are. Please grant the permission.</string>
+    <string name="status_location_services_disabled">Location services are turned off. Enable location services and try again.</string>
+    <string name="status_error">Current location is unavailable. Turn on location services, set an emulator location and try again.</string>
+    <string name="label_latitude_value">Latitude: %1$s</string>
+    <string name="label_longitude_value">Longitude: %1$s</string>
+    <string name="label_accuracy_value">Accuracy: %1$s</string>
+    <string name="label_timestamp_value">Timestamp: %1$s</string>
 </resources>
