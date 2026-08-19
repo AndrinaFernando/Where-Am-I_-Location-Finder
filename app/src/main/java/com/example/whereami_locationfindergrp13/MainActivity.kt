@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvAccuracy: TextView
     private lateinit var tvTimestamp: TextView
     private lateinit var tvStatus: TextView
+    private lateinit var tvLocationName: TextView
     private lateinit var progressLocation: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         tvAccuracy = findViewById(R.id.tvAccuracy)
         tvTimestamp = findViewById(R.id.tvTimestamp)
         tvStatus = findViewById(R.id.tvStatus)
+        tvLocationName = findViewById(R.id.tvLocationName)
         progressLocation = findViewById(R.id.progressLocation)
 
         // Ensure progress is hidden initially
@@ -83,12 +85,14 @@ class MainActivity : AppCompatActivity() {
     private fun fetchCurrentLocation() {
         if (!isLocationEnabled()) {
             tvStatus.text = getString(R.string.status_location_services_disabled)
+            tvLocationName.text = getString(R.string.location_not_available)
             return
         }
 
         // Update UI state for loading
         showLoading(true)
         tvStatus.text = getString(R.string.status_retrieving)
+        tvLocationName.text = getString(R.string.status_retrieving)
 
         locationProvider.getCurrentLocation(
             onSuccess = { location ->
@@ -103,6 +107,9 @@ class MainActivity : AppCompatActivity() {
     private fun handleLocationSuccess(location: Location) {
         showLoading(false)
         tvStatus.text = getString(R.string.status_success)
+
+        // Attempt to get address
+        fetchAddress(location)
 
         // Format and display coordinates
         tvLatitude.text = getString(
@@ -127,11 +134,45 @@ class MainActivity : AppCompatActivity() {
         showLoading(false)
         Log.e("MainActivity", "Location retrieval failed", exception)
         tvStatus.text = getString(R.string.status_error)
+        tvLocationName.text = getString(R.string.location_not_available)
     }
 
     private fun handlePermissionDenied() {
         showLoading(false)
         tvStatus.text = getString(R.string.status_permission_denied)
+        tvLocationName.text = getString(R.string.location_not_available)
+    }
+
+    private fun fetchAddress(location: Location) {
+        try {
+            val geocoder = android.location.Geocoder(this, java.util.Locale.getDefault())
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                geocoder.getFromLocation(location.latitude, location.longitude, 1) { addresses ->
+                    runOnUiThread {
+                        if (addresses.isNotEmpty()) {
+                            val address = addresses[0]
+                            val addressString = address.getAddressLine(0)
+                            tvLocationName.text = addressString
+                        } else {
+                            tvLocationName.text = getString(R.string.status_success)
+                        }
+                    }
+                }
+            } else {
+                @Suppress("DEPRECATION")
+                val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                if (!addresses.isNullOrEmpty()) {
+                    val address = addresses[0]
+                    val addressString = address.getAddressLine(0)
+                    tvLocationName.text = addressString
+                } else {
+                    tvLocationName.text = getString(R.string.status_success)
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Geocoder failed", e)
+            tvLocationName.text = getString(R.string.status_success)
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
