@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Where Am I_ location finder Grp 13</string>
+    <string name="app_name">Where Am I?</string>
+    <string name="app_heading">Where Am I?</string>
+    <string name="app_description">Tap the button to retrieve your current location.</string>
+    <string name="status_initial">Location has not been requested</string>
+    <string name="label_latitude">Latitude: Not available</string>
+    <string name="label_longitude">Longitude: Not available</string>
+    <string name="label_accuracy">Accuracy: Not available</string>
+    <string name="label_timestamp">Timestamp: Not available</string>
+    <string name="btn_get_location">Get My Location</string>
 </resources>

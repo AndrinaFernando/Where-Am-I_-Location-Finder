@@ -1,0 +1,8 @@
+<resources>
+    <dimen name="margin_default">16dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="text_size_heading">24sp</dimen>
+    <dimen name="text_size_body">16sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+</resources>
