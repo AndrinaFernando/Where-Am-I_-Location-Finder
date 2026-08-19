@@ -118,6 +118,7 @@
             android:textAppearance="?attr/textAppearanceTitleMedium"
             android:textColor="@color/neutral_dark"
             android:textStyle="bold"
+            app:backgroundTint="@color/yellow_primary"
             app:cornerRadius="@dimen/button_corner_radius"
             app:icon="@drawable/ic_my_location"
             app:iconGravity="textStart"
