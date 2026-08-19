@@ -2,7 +2,10 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.WhereAmI_LocationFinderGrp13" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primary_accent</item>
+        <item name="android:windowBackground">@color/surface_background</item>
+        <item name="android:statusBarColor">@color/surface_background</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.WhereAmI_LocationFinderGrp13" parent="Base.Theme.WhereAmI_LocationFinderGrp13" />
