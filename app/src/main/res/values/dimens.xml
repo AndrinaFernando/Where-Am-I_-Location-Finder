@@ -1,8 +1,19 @@
 <resources>
     <dimen name="margin_default">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
-    <dimen name="margin_large">24dp</dimen>
-    <dimen name="text_size_heading">24sp</dimen>
+    <dimen name="margin_medium">20dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_xlarge">48dp</dimen>
+
+    <dimen name="card_padding">20dp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="button_corner_radius">28dp</dimen>
+    <dimen name="button_height">56dp</dimen>
+
+    <dimen name="text_size_heading">28sp</dimen>
+    <dimen name="text_size_label">12sp</dimen>
+    <dimen name="text_size_address">22sp</dimen>
     <dimen name="text_size_body">16sp</dimen>
-    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_detail">15sp</dimen>
+    <dimen name="text_size_small">13sp</dimen>
 </resources>

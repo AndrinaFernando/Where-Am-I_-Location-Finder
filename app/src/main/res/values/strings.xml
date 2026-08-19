@@ -2,10 +2,22 @@
     <string name="app_name">Where Am I?</string>
     <string name="app_heading">Where Am I?</string>
     <string name="app_description">Tap the button to retrieve your current location.</string>
-    <string name="status_initial">Location has not been requested</string>
+    <string name="status_initial">Ready to locate</string>
     <string name="label_latitude">Latitude: Not available</string>
     <string name="label_longitude">Longitude: Not available</string>
     <string name="label_accuracy">Accuracy: Not available</string>
     <string name="label_timestamp">Timestamp: Not available</string>
     <string name="btn_get_location">Get My Location</string>
+
+    <!-- Redesign Strings -->
+    <string name="label_current_location">CURRENT LOCATION</string>
+    <string name="label_location_details">LOCATION DETAILS</string>
+    <string name="address_unavailable">Location not available</string>
+    <string name="address_placeholder">Tap below to find your location</string>
+    <string name="address_sub_text">Precise coordinates below</string>
+    <string name="label_latitude_clean">Latitude</string>
+    <string name="label_longitude_clean">Longitude</string>
+    <string name="label_accuracy_clean">Accuracy</string>
+    <string name="label_timestamp_clean">Time</string>
+    <string name="val_not_available">N/A</string>
 </resources>

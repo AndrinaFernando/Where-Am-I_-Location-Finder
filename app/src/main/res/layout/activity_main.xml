@@ -5,19 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="@color/surface_background"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_default">
+        android:paddingBottom="@dimen/margin_xlarge">
 
+        <!-- Top Heading -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvHeading"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_default"
             android:text="@string/app_heading"
+            android:textColor="@color/text_primary"
             android:textAppearance="?attr/textAppearanceHeadlineMedium"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,113 +34,368 @@
             android:id="@+id/tvDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_default"
             android:text="@string/app_description"
+            android:textColor="@color/text_secondary"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvHeading" />
 
+        <!-- Hero Location Card -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardStatus"
+            android:id="@+id/cardHero"
             style="?attr/materialCardViewFilledStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_large"
-            app:cardCornerRadius="8dp"
+            android:layout_marginEnd="@dimen/margin_default"
+            app:cardBackgroundColor="@color/surface_card"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="2dp"
+            app:strokeColor="@color/border_light"
+            app:strokeWidth="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvDescription">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/margin_default">
+                android:padding="@dimen/card_padding">
+
+                <ImageView
+                    android:id="@+id/ivLocationIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_location_pin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/primary_accent" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvStatus"
-                    android:layout_width="match_parent"
+                    android:id="@+id/labelCurrentLocation"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/status_initial"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                    android:textStyle="italic" />
+                    android:layout_marginStart="8dp"
+                    android:text="@string/label_current_location"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_label"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/ivLocationIcon"
+                    app:layout_constraintStart_toEndOf="@id/ivLocationIcon"
+                    app:layout_constraintTop_toTopOf="@id/ivLocationIcon" />
 
-                <ProgressBar
-                    android:id="@+id/progressLocation"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:indeterminate="true"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-            </LinearLayout>
+                    android:layout_marginTop="16dp"
+                    android:text="@string/address_placeholder"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_address"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivLocationIcon" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvAddressSub"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/address_sub_text"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvAddress" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardInfo"
-            style="?attr/materialCardViewElevatedStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_default"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardStatus">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/margin_default">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvLatitude"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_latitude"
-                    android:textAppearance="?attr/textAppearanceBodyLarge" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvLongitude"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:text="@string/label_longitude"
-                    android:textAppearance="?attr/textAppearanceBodyLarge" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvAccuracy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:text="@string/label_accuracy"
-                    android:textAppearance="?attr/textAppearanceBodyLarge" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvTimestamp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:text="@string/label_timestamp"
-                    android:textAppearance="?attr/textAppearanceBodyLarge" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
+        <!-- Main Action Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnGetLocation"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_large"
-            android:layout_marginBottom="@dimen/margin_default"
-            android:padding="12dp"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:backgroundTint="@color/primary_accent"
             android:text="@string/btn_get_location"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/text_primary"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:icon="@drawable/ic_my_location"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconTint="@color/text_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardInfo"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@id/cardHero" />
+
+        <!-- Status Area -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardStatus"
+            style="?attr/materialCardViewFilledStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:cardBackgroundColor="@color/border_light"
+            app:cardCornerRadius="20dp"
+            app:strokeWidth="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnGetLocation">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp">
+
+                <ProgressBar
+                    android:id="@+id/progressLocation"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/primary_accent"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/status_initial"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Location Details Section -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/labelDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_xlarge"
+            android:text="@string/label_location_details"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_size_label"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardStatus" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardInfo"
+            style="?attr/materialCardViewFilledStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_default"
+            app:cardBackgroundColor="@color/surface_card"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:strokeColor="@color/border_light"
+            app:strokeWidth="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelDetails">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_padding">
+
+                <!-- Latitude -->
+                <ImageView
+                    android:id="@+id/ivLatIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_location_pin"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/text_secondary" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvLatLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/label_latitude_clean"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_detail"
+                    app:layout_constraintBottom_toBottomOf="@id/ivLatIcon"
+                    app:layout_constraintStart_toEndOf="@id/ivLatIcon"
+                    app:layout_constraintTop_toTopOf="@id/ivLatIcon" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvLatitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/val_not_available"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_detail"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/tvLatLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvLatLabel" />
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/border_light"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivLatIcon" />
+
+                <!-- Longitude -->
+                <ImageView
+                    android:id="@+id/ivLongIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_location_pin"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider1"
+                    app:tint="@color/text_secondary" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvLongLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/label_longitude_clean"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_detail"
+                    app:layout_constraintBottom_toBottomOf="@id/ivLongIcon"
+                    app:layout_constraintStart_toEndOf="@id/ivLongIcon"
+                    app:layout_constraintTop_toTopOf="@id/ivLongIcon" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvLongitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/val_not_available"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_detail"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/tvLongLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvLongLabel" />
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/border_light"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivLongIcon" />
+
+                <!-- Accuracy -->
+                <ImageView
+                    android:id="@+id/ivAccIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_accuracy"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider2"
+                    app:tint="@color/text_secondary" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvAccLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/label_accuracy_clean"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_detail"
+                    app:layout_constraintBottom_toBottomOf="@id/ivAccIcon"
+                    app:layout_constraintStart_toEndOf="@id/ivAccIcon"
+                    app:layout_constraintTop_toTopOf="@id/ivAccIcon" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvAccuracy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/val_not_available"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_detail"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/tvAccLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvAccLabel" />
+
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/border_light"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivAccIcon" />
+
+                <!-- Timestamp -->
+                <ImageView
+                    android:id="@+id/ivTimeIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_time"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider3"
+                    app:tint="@color/text_secondary" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTimeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/label_timestamp_clean"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_detail"
+                    app:layout_constraintBottom_toBottomOf="@id/ivTimeIcon"
+                    app:layout_constraintStart_toEndOf="@id/ivTimeIcon"
+                    app:layout_constraintTop_toTopOf="@id/ivTimeIcon" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTimestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/val_not_available"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_detail"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/tvTimeLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvTimeLabel" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
