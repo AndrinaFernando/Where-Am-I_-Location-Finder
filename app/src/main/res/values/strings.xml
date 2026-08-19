@@ -34,4 +34,18 @@
     <string name="content_desc_location_icon">Location Icon</string>
     <string name="content_desc_accuracy_icon">Accuracy Icon</string>
     <string name="content_desc_time_icon">Time Icon</string>
+
+    <!-- Advanced Permission Dialogs -->
+    <string name="permission_rationale_title">Location Access Needed</string>
+    <string name="permission_rationale_message">This app needs location access to show your current coordinates. Precise location is preferred, but approximate location works too.</string>
+    <string name="permission_settings_title">Permission Required</string>
+    <string name="permission_settings_message">Location permission has been permanently denied. Please enable it in the App Settings to use this feature.</string>
+    <string name="btn_settings">Settings</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_ok">OK</string>
+
+    <!-- GPS/System Settings -->
+    <string name="gps_disabled_title">Location Services Off</string>
+    <string name="gps_disabled_message">Your device\'s location services (GPS) are turned off. Please enable them in system settings to continue.</string>
+    <string name="btn_enable_gps">Enable GPS</string>
 </resources>

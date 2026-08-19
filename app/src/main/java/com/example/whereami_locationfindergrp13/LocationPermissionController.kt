@@ -1,7 +1,10 @@
 package com.example.whereami_locationfindergrp13
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -10,7 +13,8 @@ import androidx.core.content.ContextCompat
 
 /**
  * Controller responsible for handling location permissions using the modern Activity Result API.
- * This class encapsulates the logic for checking and requesting permissions.
+ * This class encapsulates the logic for checking and requesting permissions, including
+ * advanced features like rationale handling and app settings navigation.
  *
  * Member 4 Responsibility.
  *
@@ -24,11 +28,20 @@ class LocationPermissionController(
 ) {
 
     /**
+     * Data class to provide detailed information about the granted permissions.
+     */
+    data class PermissionStatus(
+        val isFineGranted: Boolean,
+        val isCoarseGranted: Boolean,
+        val anyGranted: Boolean = isFineGranted || isCoarseGranted
+    )
+
+    /**
      * Register the launcher for requesting multiple permissions.
      * This must be initialized before the Activity reaches the STARTED state.
      *
-     * We request both ACCESS_FINE_LOCATION and ACCESS_COARSE_LOCATION to allow
-     * the user to choose the level of precision they are comfortable with.
+     * We request both ACCESS_FINE_LOCATION and ACCESS_COARSE_LOCATION.
+     * Android 12+ allows users to grant only "Approximate" location even if "Precise" is requested.
      */
     private val requestPermissionLauncher: ActivityResultLauncher<Array<String>> =
         activity.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -41,11 +54,17 @@ class LocationPermissionController(
 
     /**
      * Checks if at least one location permission (FINE or COARSE) is currently granted.
-     * Use ContextCompat.checkSelfPermission for compatibility.
      *
      * @return true if permission is granted, false otherwise.
      */
     fun hasLocationPermission(): Boolean {
+        return getDetailedPermissionStatus().anyGranted
+    }
+
+    /**
+     * Returns the current status of both Fine and Coarse permissions.
+     */
+    fun getDetailedPermissionStatus(): PermissionStatus {
         val fineGranted = ContextCompat.checkSelfPermission(
             activity, Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
@@ -54,12 +73,11 @@ class LocationPermissionController(
             activity, Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
 
-        return fineGranted || coarseGranted
+        return PermissionStatus(fineGranted, coarseGranted)
     }
 
     /**
      * Initiates the location permission request flow.
-     * Launches the system permission dialog for both FINE and COARSE location.
      */
     fun requestLocationPermission() {
         requestPermissionLauncher.launch(
@@ -72,7 +90,6 @@ class LocationPermissionController(
 
     /**
      * Checks whether we should show a rationale for requesting location permissions.
-     * Returns true if Android recommends explaining why these permissions are needed.
      */
     fun shouldShowPermissionRationale(): Boolean {
         return ActivityCompat.shouldShowRequestPermissionRationale(
@@ -80,5 +97,25 @@ class LocationPermissionController(
         ) || ActivityCompat.shouldShowRequestPermissionRationale(
             activity, Manifest.permission.ACCESS_COARSE_LOCATION
         )
+    }
+
+    /**
+     * Advanced: Helper to check if location permissions are permanently denied.
+     * If this returns true and [hasLocationPermission] is false, the user likely
+     * clicked "Don't ask again".
+     */
+    fun isPermanentlyDenied(): Boolean {
+        return !hasLocationPermission() && !shouldShowPermissionRationale()
+    }
+
+    /**
+     * Advanced: Opens the application details settings page.
+     * Useful when permissions are permanently denied and the user needs to enable them manually.
+     */
+    fun openAppSettings() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.fromParts("package", activity.packageName, null)
+        }
+        activity.startActivity(intent)
     }
 }
