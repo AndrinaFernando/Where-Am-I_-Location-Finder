@@ -33,9 +33,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Handle edge-to-edge window insets
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        val mainLayout = findViewById<View>(R.id.main)
+        val initialPaddingLeft = mainLayout.paddingLeft
+        val initialPaddingTop = mainLayout.paddingTop
+        val initialPaddingRight = mainLayout.paddingRight
+        val initialPaddingBottom = mainLayout.paddingBottom
+
+        ViewCompat.setOnApplyWindowInsetsListener(mainLayout) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.setPadding(
+                initialPaddingLeft + systemBars.left,
+                initialPaddingTop + systemBars.top,
+                initialPaddingRight + systemBars.right,
+                initialPaddingBottom + systemBars.bottom
+            )
             insets
         }
 

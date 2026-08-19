@@ -7,6 +7,7 @@
     <dimen name="screen_padding_horizontal">32dp</dimen>
     <dimen name="screen_padding_vertical">24dp</dimen>
     <dimen name="button_margin_horizontal">24dp</dimen>
+    <dimen name="max_content_width">600dp</dimen>
     <dimen name="text_size_heading">28sp</dimen>
     <dimen name="text_size_hero">24sp</dimen>
     <dimen name="text_size_body">16sp</dimen>
